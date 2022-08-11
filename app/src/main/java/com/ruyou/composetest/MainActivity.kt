@@ -18,6 +18,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.rememberDrawerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -30,37 +32,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-                ListItem(name = "naasdfasdfme", prof = "prof")
-            }
+            Box(modifier = Modifier.fillMaxSize()) {
 
+            }
         }
     }
 }
 
 @Composable
 private fun ListItem(name: String, prof: String) {
+    var counter = remember {
+        mutableStateOf(0)
+    }
     Card(modifier = Modifier
         .fillMaxWidth()
         .padding(10.dp)
         .clickable {
-
-        }
-        .pointerInput(Unit) {
-            detectHorizontalDragGestures { change, dragAmount ->
-                Log.d("MyTag", "click $dragAmount")
-            }
+            counter.value++
         },
         shape = RoundedCornerShape(15.dp),
         elevation = 10.dp
@@ -77,7 +65,7 @@ private fun ListItem(name: String, prof: String) {
                         .padding(5.dp)
                 )
                 Column(modifier = Modifier.padding(start = 16.dp)) {
-                    Text(text = name)
+                    Text(text = counter.value.toString())
                     Text(text = prof)
                 }
 
