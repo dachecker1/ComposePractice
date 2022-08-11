@@ -7,7 +7,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -25,41 +28,17 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircleItem()
+            LazyColumn(horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxSize()) {
+                itemsIndexed(
+                    listOf("First", "Second", "End", "Finish")
+                ) { index, item ->  
+                    Text(text = item, fontSize = 30.sp, modifier = Modifier.padding(vertical = 10.dp))
+                }
             }
         }
     }
 }
 
-@Preview
-@Composable
-private fun CircleItem() {
-    val counter = remember {
-        mutableStateOf(0)
-    }
-    val color = remember {
-        mutableStateOf(Color.Blue)
-    }
-    Box(modifier = Modifier
-        .background(color = color.value, shape = CircleShape)
-        .size(100.dp)
-        .clickable {
-            counter.value++
-            if (counter.value > 10) {
-                color.value = Color.Red
-            }
-        },
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = counter.value.toString(),
-            style = TextStyle(color = Color.White, fontSize = 26.sp)
-        )
-    }
-}
 
 
